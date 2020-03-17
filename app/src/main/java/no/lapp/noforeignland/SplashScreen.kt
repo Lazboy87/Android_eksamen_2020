@@ -1,7 +1,9 @@
 package no.lapp.noforeignland
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 
@@ -22,5 +24,11 @@ image= findViewById(R.id.imageCompas)
     private fun animateImage() {
         val rotate = AnimationUtils.loadAnimation(this,R.anim.rotate)
         image.animation = rotate
+
+        Handler().postDelayed({
+            val intent = Intent(this,ListPlaces::class.java)
+            startActivity(intent)
+            finish()
+        }, 4000)
     }
 }
