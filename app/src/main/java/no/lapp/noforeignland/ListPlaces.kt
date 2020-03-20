@@ -1,13 +1,14 @@
 package no.lapp.noforeignland
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.SearchEvent
+
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+
 
 
 class ListPlaces : AppCompatActivity() {
@@ -31,7 +32,11 @@ class ListPlaces : AppCompatActivity() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             finishAffinity();
+            deleteDatabase ("Places.db")
             return;
+
+
+
         }
 
         this.doubleBackToExitPressedOnce = true
