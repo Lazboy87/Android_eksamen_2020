@@ -29,6 +29,6 @@ image= findViewById(R.id.imageCompas)
             val intent = Intent(this,ListPlaces::class.java)
             startActivity(intent)
             finish()
-        }, 4000)
+        }, 6000)
     }
 }
