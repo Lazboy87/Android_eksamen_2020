@@ -22,7 +22,7 @@ class ListPlaces : AppCompatActivity() {
 
         if (recycle != null) {
             recycle.layoutManager=LinearLayoutManager(this)
-            recycle.adapter=??
+            recycle.adapter=ViewAdapter()
         }
 
 
