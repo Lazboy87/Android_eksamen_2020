@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.recycler_layout.view.*
 
 class ViewAdapter: RecyclerView.Adapter<CustomViewHolder>() {
 
-    val placeNames = listOf("FIRST PLACE","Second","3rd")
+    val placeNames = listOf("FIRST PLACE","Second","3rd","FIRST PLACE","Second","3rd","FIRST PLACE","Second","3rd")
 
     override fun getItemCount(): Int {
         return placeNames.size

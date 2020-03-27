@@ -12,7 +12,7 @@
         <activity android:name=".ShowMap" >
         </activity>
         <activity android:name=".PlaceInfo" />
-        <activity android:name=".ListPlaces" />
+        <activity android:name=".ListPlaces" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Recycler"
-        android:layout_width="378dp"
-        android:layout_height="466dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.865" />
+    <EditText
+        android:id="@+id/Search"
+        android:layout_width="318dp"
+        android:layout_height="54dp"
 
-    <SearchView
-        android:id="@+id/SearchList"
-        android:layout_width="341dp"
-        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197">
-
-    </SearchView>
+        app:layout_constraintVertical_bias="0.164" />
 
     <TextView
         android:id="@+id/Headline"
@@ -55,5 +44,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01"
         app:srcCompat="@drawable/compas" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Recycler"
+        android:layout_width="410dp"
+        android:layout_height="369dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.74" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="46dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.169"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
