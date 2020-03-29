@@ -1,5 +1,6 @@
 package no.lapp.noforeignland
 
+import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
 
@@ -15,7 +16,14 @@ public fun fetchJson() {
         override fun onResponse(call: Call, response: Response) {
             val body = response?.body()?.string()
             println(body)
+
+            val gson = GsonBuilder().create()
+
+            val feedPlaceList = gson.fromJson(body, ListFeed::class.java)
         }
 
     })
 }
+
+
+
