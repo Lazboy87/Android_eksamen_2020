@@ -7,6 +7,8 @@ import android.os.Handler
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import okhttp3.*
+import java.io.IOException
 
 
 class SplashScreen : AppCompatActivity() {
@@ -19,11 +21,15 @@ class SplashScreen : AppCompatActivity() {
 
         image= findViewById(R.id.imageCompas)
 
-        newProduct()
+        fetchJson()
+        newPlacetoDB()
         animateImage()
 
 
+
     }
+
+
 
 
     private fun animateImage() {
@@ -37,7 +43,7 @@ class SplashScreen : AppCompatActivity() {
         }, 6000)
     }
 
-   public fun newProduct() {
+ fun newPlacetoDB() {
         val dbHandler = DBHandler(this, null, null, 1)
 
        val id = 1247533475347
@@ -66,3 +72,4 @@ class SplashScreen : AppCompatActivity() {
 
 
 }
+
