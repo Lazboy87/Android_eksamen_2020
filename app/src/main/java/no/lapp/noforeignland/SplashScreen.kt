@@ -7,8 +7,7 @@ import android.os.Handler
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import okhttp3.*
-import java.io.IOException
+
 
 
 class SplashScreen : AppCompatActivity() {
