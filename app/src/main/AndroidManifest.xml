@@ -10,11 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".ShowMap" >
+        <activity android:name=".activity.ShowMap" >
         </activity>
-        <activity android:name=".PlaceInfo" />
-        <activity android:name=".ListPlaces" android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".SplashScreen" >
+        <activity android:name=".activity.PlaceInfo" />
+        <activity android:name=".activity.ListPlaces" android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

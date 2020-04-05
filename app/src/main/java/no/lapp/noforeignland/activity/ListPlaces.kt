@@ -1,15 +1,16 @@
-package no.lapp.noforeignland
+package no.lapp.noforeignland.activity
 
-import android.content.Context
-import android.content.Intent
+
 import android.os.Bundle
 import android.os.Handler
 
-import android.widget.Button
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import no.lapp.noforeignland.R
+import no.lapp.noforeignland.adapters.ViewAdapter
 
 
 class ListPlaces : AppCompatActivity() {
@@ -18,11 +19,11 @@ class ListPlaces : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_places)
 
-        val recycle: RecyclerView? = findViewById<RecyclerView>(R.id.Recycler)
+     val recycle: RecyclerView? = findViewById<RecyclerView>(R.id.Recycler)
 
         if (recycle != null) {
             recycle.layoutManager=LinearLayoutManager(this)
-            recycle.adapter=ViewAdapter()
+            recycle.adapter= ViewAdapter()
         }
 
 

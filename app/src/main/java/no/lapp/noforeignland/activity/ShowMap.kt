@@ -1,7 +1,8 @@
-package no.lapp.noforeignland
+package no.lapp.noforeignland.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import no.lapp.noforeignland.R
 
 class ShowMap : AppCompatActivity() {
 
