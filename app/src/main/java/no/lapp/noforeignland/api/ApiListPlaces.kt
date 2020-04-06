@@ -1,44 +1,40 @@
 package no.lapp.noforeignland.api
 
 
-import com.google.gson.GsonBuilder
+
+
+
+import com.google.gson.Gson
 import no.lapp.noforeignland.classes.PlacesData
 import okhttp3.*
 import java.io.IOException
 
- interface ApiListPlaces{
+class ApiListPlaces(private var listener : OnAPIResultListener) {
 
 
-     fun fetchJson() {
-    val url = "https://www.noforeignland.com/home/api/v1/places/"
-    val request = Request.Builder().url(url).build()
-    val client = OkHttpClient()
+    fun fetchJson() {
+        val url = "https://www.noforeignland.com/home/api/v1/places/"
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
 
 
-    client.newCall(request).enqueue(object: Callback {
-        override fun onFailure(call: Call, e: IOException) {
-            TODO("Not yet implemented")
-        }
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("Not yet implemented")
+            }
 
 
-        override fun onResponse(call: Call, response: Response) {
-            val body = response?.body()?.string()
-            println(body)
-
-            val gson = GsonBuilder().create()
-
-            val placList = gson.fromJson(body,PlacesData::class.java)
-
+            override fun onResponse(call: Call, response: Response) {
+                val body = response?.body()?.string()
+                println(body)
+                val placesData = Gson().fromJson(body, PlacesData::class.java)
+                listener.onAPISuccess(placesData.features)
+            }
 
 
-            println(placList)
+        })
+    }
 
-
-
-        }
-
-    })
-}
 }
 
 

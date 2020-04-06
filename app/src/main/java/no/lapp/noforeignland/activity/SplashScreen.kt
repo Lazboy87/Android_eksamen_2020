@@ -5,16 +5,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.IInterface
+
 
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+
+
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.api.ApiListPlaces
 
 
 
-class SplashScreen: ApiListPlaces, AppCompatActivity() {
+
+
+class SplashScreen:AppCompatActivity() {
 
     private lateinit var image:ImageView
 
@@ -28,17 +31,9 @@ class SplashScreen: ApiListPlaces, AppCompatActivity() {
         image= findViewById(R.id.imageCompas)
 
 
-        fetchJson()
-
-
-
-
 
 
         animateImage()
-
-
-
 
 
     }
@@ -55,16 +50,14 @@ class SplashScreen: ApiListPlaces, AppCompatActivity() {
             val intent = Intent(this, ListPlaces::class.java)
             startActivity(intent)
             finish()
-        }, 6000)
-    }
-
-
-
-
+        }, 9000)
 
 
     }
 
+
+
+}
 
 
 
