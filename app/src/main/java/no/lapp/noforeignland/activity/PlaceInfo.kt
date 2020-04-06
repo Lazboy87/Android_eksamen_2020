@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.place_info.*
+
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.classes.PlaceDescriptionData
-import no.lapp.noforeignland.classes.PlacesData
+import no.lapp.noforeignland.classes.infoAPI.PlacesDescriptionData
 import okhttp3.*
 import java.io.IOException
 
@@ -42,14 +42,21 @@ class PlaceInfo : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val body = response?.body()?.string()
                 println(body)
-                val placesDescriptionData:PlaceDescriptionData = Gson().fromJson(body, PlaceDescriptionData::class.java)
-                println(placesDescriptionData.place.name)
+                val placesDescriptionData = Gson().fromJson(body, PlacesDescriptionData::class.java)
+                println(placesDescriptionData)
 
                 runOnUiThread {
                     Placename.text = placesDescriptionData.place.name
-                    description.text = placesDescriptionData.place.comments
+
+                    description.text = placesDescriptionData.place.comments.removePrefix("<p>").removeSuffix("</p>")
+
+
+
 
                 }
+
+
+
 
             }
 

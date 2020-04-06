@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.classes
+package no.lapp.noforeignland.classes.infoAPI
 
 
 import com.google.gson.annotations.SerializedName

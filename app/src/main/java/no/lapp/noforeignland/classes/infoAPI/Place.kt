@@ -1,12 +1,12 @@
-package no.lapp.noforeignland.classes
+package no.lapp.noforeignland.classes.infoAPI
 
 
 import com.google.gson.annotations.SerializedName
 
 data class Place(
     val addedBy: String,
-    val addedById: Long,
-    val addedMs: Long,
+    val addedById: Any,
+
     val allowsExternalContractors: Boolean,
     val banner: String,
     val blogCount: Int,
@@ -25,7 +25,7 @@ data class Place(
     val gasolinePriceUpdatedMs: Long,
     val icon: String,
     val id: Long,
-    val images: List<Any>,
+    val images: List<Image>,
     val lat: Double,
     val lon: Double,
     val mapboxIcon: String,
@@ -39,7 +39,7 @@ data class Place(
     val stars: Int,
     val type: String,
     val updatedBy: String,
-    val updatedById: Any,
-    val updatedMs: Int,
+    val updatedById: Long,
+    val updatedMs: Long,
     val winterCommunity: Boolean
 )
