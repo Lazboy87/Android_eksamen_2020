@@ -57,6 +57,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         var place = LatLng(corY,corX)
         var name = intent.getStringExtra("placename")
+
+
         mMap.addMarker(MarkerOptions().position(place).title(name))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(place))
     }

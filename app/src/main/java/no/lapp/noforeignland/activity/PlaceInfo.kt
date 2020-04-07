@@ -1,12 +1,16 @@
 package no.lapp.noforeignland.activity
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.place_info.*
 
 import no.lapp.noforeignland.R
+import no.lapp.noforeignland.classes.infoAPI.Image
 import no.lapp.noforeignland.classes.infoAPI.PlacesDescriptionData
 import okhttp3.*
 import java.io.IOException
@@ -19,12 +23,18 @@ class PlaceInfo : AppCompatActivity() {
         setContentView(R.layout.place_info)
 
 
+        val picasso = Picasso.get()
+
+
+        val id= intent.getStringExtra("id")
+        val corX:Double = intent.getDoubleExtra("cordinatesX",0.0)
+        val corY:Double = intent.getDoubleExtra("cordinatesY",0.0)
+        var name = intent.getStringExtra("placename")
 
 
 
+        Placename.text=name
 
-        val id =intent.getLongExtra("id",0).toString()
-        println(id)
 
 
         val url = "https://www.noforeignland.com/home/api/v1/place?id="+id+""
@@ -43,17 +53,30 @@ class PlaceInfo : AppCompatActivity() {
                 val body = response?.body()?.string()
                 println(body)
                 val placesDescriptionData = Gson().fromJson(body, PlacesDescriptionData::class.java)
-                println(placesDescriptionData)
 
-                runOnUiThread {
-                    Placename.text = placesDescriptionData.place.name
+                    val images = placesDescriptionData.place.images.ifEmpty { null }
 
-                    description.text = placesDescriptionData.place.comments.removePrefix("<p>").removeSuffix("</p>")
+                   val imageurlrandom = images?.random()
+
+                val imgUrl:String? = imageurlrandom?.servingUrl
+
+                println(imgUrl)
 
 
 
 
-                }
+
+
+                    runOnUiThread {
+
+                        val comments = placesDescriptionData.place.comments.removePrefix("<p>")
+                            .removeSuffix("</p>")
+
+                        description.text=comments
+
+                        Picasso.get().load(imgUrl).into(imagePlace)
+                        }
+
 
 
 
@@ -63,6 +86,29 @@ class PlaceInfo : AppCompatActivity() {
         })
 
 
+
+        imageButtonMAP.setOnClickListener {
+
+
+
+
+
+
+            val PLACENAME = "placename"
+            val CORDINATES_X = "cordinatesX"
+            val CORDINATES_Y = "cordinatesY"
+
+
+            val intent = Intent(this, MapsActivity::class.java)
+
+            intent.putExtra(CORDINATES_X,corX)
+            intent.putExtra(CORDINATES_Y,corY)
+            intent.putExtra(PLACENAME,name)
+
+       startActivity(intent)
+
+
+        }
 
 
 }

@@ -15,7 +15,7 @@ data class Place(
     val col: String,
     val comments: String,
     val countryCode: String,
-    val dieselPrice: Int,
+
     val dieselPriceUpdatedMs: Long,
     val externalLink1: String,
     val externalLink2: String,
@@ -25,7 +25,7 @@ data class Place(
     val gasolinePriceUpdatedMs: Long,
     val icon: String,
     val id: Long,
-    val images: List<Image>,
+    val images:List<Image>,
     val lat: Double,
     val lon: Double,
     val mapboxIcon: String,

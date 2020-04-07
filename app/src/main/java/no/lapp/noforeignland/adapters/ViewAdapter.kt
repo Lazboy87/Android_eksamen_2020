@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.recycler_layout.view.*
 import no.lapp.noforeignland.R
 import no.lapp.noforeignland.activity.MapsActivity
 import no.lapp.noforeignland.activity.PlaceInfo
 import no.lapp.noforeignland.classes.Feature
+import no.lapp.noforeignland.classes.infoAPI.PlacesDescriptionData
+import okhttp3.*
+import java.io.IOException
 
 
 class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Adapter<ViewAdapter.CustomViewHolder>() {
@@ -40,14 +44,36 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
 
             view.PlaceNametxt?.setOnClickListener {
-                val intent = Intent(view.context, PlaceInfo::class.java)
-                val nameValue = placeList.get(position).properties.name
-                val id = placeList.get(position).properties.id
 
-                intent.putExtra("placename",nameValue)
+                val intent = Intent(view.context, PlaceInfo::class.java)
+
+                val nameValue = placeList.get(position).properties.name
+                val id = placeList.get(position).properties.id.toString()
+
+                val corValue = placeList.get(position).geometry.coordinates
+
+                val corXvalue = corValue[0]
+                val corYvalue = corValue[1]
+
+
+                val PLACENAME = "placename"
+                val CORDINATES_X = "cordinatesX"
+                val CORDINATES_Y = "cordinatesY"
+
+
+
+
+                intent.putExtra(CORDINATES_X,corXvalue)
+                intent.putExtra(CORDINATES_Y,corYvalue)
+                intent.putExtra(PLACENAME,nameValue)
                 intent.putExtra("id",id)
+
+
+
                 view.context.startActivity(intent)
             }
+
+
 
             view.imageButtonMAP?.setOnClickListener {
 
