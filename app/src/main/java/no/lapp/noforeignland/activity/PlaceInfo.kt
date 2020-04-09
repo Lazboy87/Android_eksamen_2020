@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.Activity
+package no.lapp.noforeignland.activity
 
 
 import android.content.Intent

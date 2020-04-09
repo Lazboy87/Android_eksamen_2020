@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.Activity
+package no.lapp.noforeignland.activity
 
 
 import android.os.Bundle
@@ -11,24 +11,23 @@ import kotlinx.android.synthetic.main.list_places.*
 
 
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.Adapters.ViewAdapter
-import no.lapp.noforeignland.Api.ApiListPlaces
-import no.lapp.noforeignland.Api.OnAPIResultListener
-import no.lapp.noforeignland.classes.Feature
+import no.lapp.noforeignland.adapters.ViewAdapter
+
+import no.lapp.noforeignland.database.DBHandler
 
 
-class ListPlaces: AppCompatActivity(), OnAPIResultListener {
-
+class ListPlaces: AppCompatActivity() {
+    private lateinit var dbHandler: DBHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_places)
 
+        dbHandler = DBHandler(this,null,null,1)
+       // ApiListPlaces(this).fetchJson()
 
-        ApiListPlaces(this).fetchJson()
 
-
-
+showplacesFromDB()
 
 
 
@@ -40,6 +39,8 @@ class ListPlaces: AppCompatActivity(), OnAPIResultListener {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             finishAffinity();
+
+
             return;
 
 
@@ -53,16 +54,21 @@ class ListPlaces: AppCompatActivity(), OnAPIResultListener {
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    override fun onAPISuccess(placeList: MutableList<Feature>) {
 
 
-
+     fun showplacesFromDB(){
         runOnUiThread {
 
 
-        }
+            val PlacesList = dbHandler.getPlaces(this)
+            val adapter = ViewAdapter(PlacesList)
+            Recycler.adapter = adapter
+            Recycler.layoutManager = LinearLayoutManager(this@ListPlaces)
 
+        }
     }
+
+
 
 
 }

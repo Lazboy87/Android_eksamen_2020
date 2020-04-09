@@ -3,7 +3,9 @@ package no.lapp.noforeignland.classes
 class PlacesHolder {
      var id:Long = 0
     var name:String = ""
-    var coordinates = listOf(00.00,00.00)
+    var coordinatesX:Double= 0.0
+    var coordinatesY:Double= 0.0
+
 
 
 

@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.Activity
+package no.lapp.noforeignland.activity
 
 
 import android.content.Intent
@@ -9,22 +9,20 @@ import android.os.Handler
 
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import no.lapp.noforeignland.Api.OnAPIResultListener
 
 
 import no.lapp.noforeignland.R
+import no.lapp.noforeignland.api.ApiListPlaces
+import no.lapp.noforeignland.api.OnAPIResultListener
 import no.lapp.noforeignland.classes.Feature
 import no.lapp.noforeignland.classes.PlacesHolder
 import no.lapp.noforeignland.database.DBHandler
 
 
-class SplashScreen:AppCompatActivity(),OnAPIResultListener {
+class SplashScreen:AppCompatActivity(), OnAPIResultListener {
 
     private lateinit var image:ImageView
     private lateinit var dbHandler: DBHandler
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,30 +34,42 @@ class SplashScreen:AppCompatActivity(),OnAPIResultListener {
 
         image= findViewById(R.id.imageCompas)
 
-
+        ApiListPlaces(this).fetchJson()
 
 
         animateImage()
 
 
     }
+
     override fun onAPISuccess(placeList: MutableList<Feature>) {
 
-        for (feature in placeList){
+
+                    runOnUiThread {
+
+                    for (feature in placeList) {
 
 
-        val place= PlacesHolder()
-        place.name = feature.properties.name
-        place.id = feature.properties.id
-        place.coordinates = feature.geometry.coordinates
+                    val place = PlacesHolder()
+                    place.name = feature.properties.name
+                    place.id = feature.properties.id
+                    val corValue = feature.geometry.coordinates
 
-            dbHandler.addPlaces(this,place)
+                    place.coordinatesX = corValue[0]
+                    place.coordinatesY = corValue[1]
 
 
-        }
+                      dbHandler.addPlaces(this, place)
+
+                    }
+
+            }
+
+
 
 
     }
+
 
 
 

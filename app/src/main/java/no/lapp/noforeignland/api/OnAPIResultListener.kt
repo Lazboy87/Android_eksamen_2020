@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.Api
+package no.lapp.noforeignland.api
 
 import no.lapp.noforeignland.classes.Feature
 

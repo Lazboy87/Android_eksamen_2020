@@ -1,18 +1,19 @@
-package no.lapp.noforeignland.Adapters
+package no.lapp.noforeignland.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.persistableBundleOf
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_layout.view.*
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.Activity.MapsActivity
-import no.lapp.noforeignland.Activity.PlaceInfo
-import no.lapp.noforeignland.classes.Feature
+import no.lapp.noforeignland.activity.MapsActivity
+import no.lapp.noforeignland.activity.PlaceInfo
+import no.lapp.noforeignland.classes.PlacesHolder
 
 
-class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Adapter<ViewAdapter.CustomViewHolder>(){
+class ViewAdapter(private var placeList: ArrayList<PlacesHolder>): RecyclerView.Adapter<ViewAdapter.CustomViewHolder>(){
 
 
     override fun getItemCount(): Int {
@@ -29,7 +30,7 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
 
         val placeNames = placeList.get(position)
-        holder.view.PlaceNametxt?.text= placeNames.properties.name
+        holder.view.PlaceNametxt?.text= placeNames.name
 
         }
 
@@ -41,13 +42,13 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
                 val intent = Intent(view.context, PlaceInfo::class.java)
 
-                val nameValue = placeList.get(position).properties.name
-                val id = placeList.get(position).properties.id.toString()
+                val nameValue = placeList.get(position).name
+                val id = placeList.get(position).id.toString()
 
-                val corValue = placeList.get(position).geometry.coordinates
 
-                val corXvalue = corValue[0]
-                val corYvalue = corValue[1]
+
+                val corXvalue = placeList.get(position).coordinatesX
+                val corYvalue = placeList.get(position).coordinatesY
 
 
                 val PLACENAME = "placename"
@@ -64,12 +65,14 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
             view.imageButtonMAP?.setOnClickListener {
 
-                val place = placeList.get(position)
-                val nameValue = placeList.get(position).properties.name
-                val corValue = placeList.get(position).geometry.coordinates
+                val nameValue = placeList.get(position).name
 
-                val corXvalue = corValue[0]
-                val corYvalue = corValue[1]
+
+
+
+                val corXvalue = placeList.get(position).coordinatesX
+                val corYvalue = placeList.get(position).coordinatesY
+
 
 
                 val PLACENAME = "placename"
@@ -82,7 +85,7 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
                 intent.putExtra(CORDINATES_X,corXvalue)
                 intent.putExtra(CORDINATES_Y,corYvalue)
                 intent.putExtra(PLACENAME,nameValue)
-                println(corValue)
+
                 view.context.startActivity(intent)
 
 
