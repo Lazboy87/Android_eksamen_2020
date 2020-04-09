@@ -59,9 +59,7 @@ class ListPlaces: AppCompatActivity(), OnAPIResultListener {
 
         runOnUiThread {
 
-            val adapter = ViewAdapter(placeList)
-            Recycler.adapter = adapter
-            Recycler.layoutManager=LinearLayoutManager(this@ListPlaces)
+
         }
 
     }

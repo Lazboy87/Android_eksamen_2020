@@ -1,9 +1,10 @@
 package no.lapp.noforeignland.classes
 
 class PlacesHolder {
-     val id:Long = 0
-    val name:String = ""
-    val coordinates:List<Double> =
+     var id:Long = 0
+    var name:String = ""
+    var coordinates = listOf(00.00,00.00)
+
 
 
 }
