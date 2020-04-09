@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.activity
+package no.lapp.noforeignland.Activity
 
 
 import android.os.Bundle
@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.list_places.*
 
 
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.adapters.ViewAdapter
-import no.lapp.noforeignland.api.ApiListPlaces
-import no.lapp.noforeignland.api.OnAPIResultListener
+import no.lapp.noforeignland.Adapters.ViewAdapter
+import no.lapp.noforeignland.Api.ApiListPlaces
+import no.lapp.noforeignland.Api.OnAPIResultListener
 import no.lapp.noforeignland.classes.Feature
 
 
@@ -26,6 +26,13 @@ class ListPlaces: AppCompatActivity(), OnAPIResultListener {
 
 
         ApiListPlaces(this).fetchJson()
+
+
+
+
+
+
+
     }
 
     private var doubleBackToExitPressedOnce = false
@@ -34,6 +41,9 @@ class ListPlaces: AppCompatActivity(), OnAPIResultListener {
             super.onBackPressed()
             finishAffinity();
             return;
+
+
+
 
      }
 
@@ -44,7 +54,11 @@ class ListPlaces: AppCompatActivity(), OnAPIResultListener {
     }
 
     override fun onAPISuccess(placeList: MutableList<Feature>) {
+
+
+
         runOnUiThread {
+
             val adapter = ViewAdapter(placeList)
             Recycler.adapter = adapter
             Recycler.layoutManager=LinearLayoutManager(this@ListPlaces)

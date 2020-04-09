@@ -1,6 +1,5 @@
-package no.lapp.noforeignland.activity
+package no.lapp.noforeignland.Activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -11,9 +10,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.adapters.ViewAdapter
-import no.lapp.noforeignland.adapters.ViewAdapter.CustomViewHolder
-import no.lapp.noforeignland.classes.PlacesData
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -26,11 +22,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-
-
-
-
 
     }
 
@@ -46,14 +37,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-
         val corX:Double = intent.getDoubleExtra("cordinatesX",0.0)
         val corY:Double = intent.getDoubleExtra("cordinatesY",0.0)
-
-
-
-
-
 
         var place = LatLng(corY,corX)
         var name = intent.getStringExtra("placename")

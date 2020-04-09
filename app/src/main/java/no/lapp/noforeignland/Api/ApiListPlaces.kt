@@ -1,4 +1,4 @@
-package no.lapp.noforeignland.api
+package no.lapp.noforeignland.Api
 
 
 
@@ -20,7 +20,7 @@ class ApiListPlaces(private var listener : OnAPIResultListener) {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                TODO("Not yet implemented")
+
             }
 
 

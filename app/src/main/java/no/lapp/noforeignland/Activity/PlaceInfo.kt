@@ -1,16 +1,13 @@
-package no.lapp.noforeignland.activity
+package no.lapp.noforeignland.Activity
 
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.place_info.*
-
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.classes.infoAPI.Image
 import no.lapp.noforeignland.classes.infoAPI.PlacesDescriptionData
 import okhttp3.*
 import java.io.IOException
@@ -45,7 +42,7 @@ class PlaceInfo : AppCompatActivity() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                TODO("Not yet implemented")
+
             }
 
 

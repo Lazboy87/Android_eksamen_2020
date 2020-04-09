@@ -1,22 +1,19 @@
-package no.lapp.noforeignland.adapters
+package no.lapp.noforeignland.Adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.recycler_layout.view.*
 import no.lapp.noforeignland.R
-import no.lapp.noforeignland.activity.MapsActivity
-import no.lapp.noforeignland.activity.PlaceInfo
+import no.lapp.noforeignland.Activity.MapsActivity
+import no.lapp.noforeignland.Activity.PlaceInfo
 import no.lapp.noforeignland.classes.Feature
-import no.lapp.noforeignland.classes.infoAPI.PlacesDescriptionData
-import okhttp3.*
-import java.io.IOException
 
 
-class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Adapter<ViewAdapter.CustomViewHolder>() {
+class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Adapter<ViewAdapter.CustomViewHolder>(){
+
 
     override fun getItemCount(): Int {
         return placeList.count()
@@ -30,6 +27,7 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
 
+
         val placeNames = placeList.get(position)
         holder.view.PlaceNametxt?.text= placeNames.properties.name
 
@@ -39,10 +37,6 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
 
         init {
-
-
-
-
             view.PlaceNametxt?.setOnClickListener {
 
                 val intent = Intent(view.context, PlaceInfo::class.java)
@@ -60,20 +54,13 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
                 val CORDINATES_X = "cordinatesX"
                 val CORDINATES_Y = "cordinatesY"
 
-
-
-
                 intent.putExtra(CORDINATES_X,corXvalue)
                 intent.putExtra(CORDINATES_Y,corYvalue)
                 intent.putExtra(PLACENAME,nameValue)
                 intent.putExtra("id",id)
 
-
-
                 view.context.startActivity(intent)
             }
-
-
 
             view.imageButtonMAP?.setOnClickListener {
 
@@ -103,6 +90,8 @@ class ViewAdapter(private var placeList: MutableList<Feature>): RecyclerView.Ada
 
         }
     }
+
+
 
 
 }
