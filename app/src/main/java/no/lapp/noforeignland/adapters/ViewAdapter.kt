@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.persistableBundleOf
+
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_layout.view.*
 import no.lapp.noforeignland.R
@@ -19,6 +19,12 @@ class ViewAdapter(private var placeList: ArrayList<PlacesHolder>): RecyclerView.
     override fun getItemCount(): Int {
         return placeList.count()
     }
+
+     fun filterlist(filterlist:MutableList<PlacesHolder>){
+         placeList = filterlist as ArrayList<PlacesHolder>
+         notifyDataSetChanged()
+
+     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

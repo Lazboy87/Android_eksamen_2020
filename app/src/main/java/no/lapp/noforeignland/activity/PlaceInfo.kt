@@ -20,7 +20,7 @@ class PlaceInfo : AppCompatActivity() {
         setContentView(R.layout.place_info)
 
 
-        val picasso = Picasso.get()
+
 
 
         val id= intent.getStringExtra("id")

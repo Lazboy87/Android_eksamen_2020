@@ -3,6 +3,8 @@ package no.lapp.noforeignland.activity
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +14,10 @@ import kotlinx.android.synthetic.main.list_places.*
 
 import no.lapp.noforeignland.R
 import no.lapp.noforeignland.adapters.ViewAdapter
+import no.lapp.noforeignland.classes.PlacesHolder
 
 import no.lapp.noforeignland.database.DBHandler
+import java.util.Locale.filter
 
 
 class ListPlaces: AppCompatActivity() {
@@ -24,15 +28,55 @@ class ListPlaces: AppCompatActivity() {
         setContentView(R.layout.list_places)
 
         dbHandler = DBHandler(this,null,null,1)
-       // ApiListPlaces(this).fetchJson()
 
 
-showplacesFromDB()
+
+  showplacesFromDB()
 
 
+        Search.addTextChangedListener( object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filter(s.toString())
+            }
+
+
+
+        })
 
 
     }
+
+
+
+    private fun filter(text: String) {
+
+        val PlacesList = dbHandler.getPlaces(this)
+        var filterlist = dbHandler.getPlacesSearch(this,text)
+        println(filterlist)
+
+//        for(place in PlacesList){
+//            if(place.name.toLowerCase().contains(Text.toLowerCase())){
+//                filterlist.add(place)
+//
+//            }
+//            println(filterlist.toString())
+//        }
+        runOnUiThread {
+            val adapter = ViewAdapter(PlacesList)
+            adapter.filterlist(filterlist)
+            Recycler.adapter = adapter
+            Recycler.layoutManager = LinearLayoutManager(this@ListPlaces)
+        }
+    }
+
 
     private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
@@ -56,7 +100,7 @@ showplacesFromDB()
 
 
 
-     fun showplacesFromDB(){
+ fun showplacesFromDB(){
         runOnUiThread {
 
 

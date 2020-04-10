@@ -37,13 +37,7 @@ class DBHandler(
                 "$COLUMN_COORDINATES_X DOUBLE,"+
                 "$COLUMN_COORDINATES_Y DOUBLE )")
 
-
-
-
-
-            db?.execSQL(CREATE_PLACES_TABLE)
-
-
+        db?.execSQL(CREATE_PLACES_TABLE)
 
     }
 
@@ -67,6 +61,7 @@ class DBHandler(
 
         if (cursor.count == 0) {
             Toast.makeText(context, "no records found", Toast.LENGTH_SHORT).show()
+
 
         } else {
             while (cursor.moveToNext()) {
@@ -96,15 +91,15 @@ class DBHandler(
 
 
     fun addPlaces(context: Context, place: PlacesHolder){
-        val db=this.writableDatabase
-        db.beginTransaction()
+
+
         val values=ContentValues()
-      values.put(COLUMN_ID,place.id)
+        values.put(COLUMN_ID,place.id)
         values.put(COLUMN_COORDINATES_X,place.coordinatesX)
         values.put(COLUMN_COORDINATES_Y,place.coordinatesY)
         values.put(COLUMN_NAME,place.name)
 
-
+        val db=this.writableDatabase
         try {
 
 
@@ -119,7 +114,43 @@ class DBHandler(
             Toast.makeText(context,"fail to input", Toast.LENGTH_SHORT).show()
         }
 
-        db.endTransaction()
+
+    }
+
+
+    fun getPlacesSearch(context: Context, text:String): ArrayList<PlacesHolder> {
+
+        val query = "SELECT * FROM $PLACES_TABLE_NAME "+ " WHERE "+ COLUMN_NAME+ " LIKE '"+text+"%'"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(query, null)
+        val places = ArrayList<PlacesHolder>()
+
+        if (cursor.count == 0) {
+            Toast.makeText(context, "no records found", Toast.LENGTH_SHORT).show()
+
+
+        } else {
+            while (cursor.moveToNext()) {
+                val place = PlacesHolder()
+                place.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID))
+                place.coordinatesX = cursor.getDouble(cursor.getColumnIndex(COLUMN_COORDINATES_X))
+                place.coordinatesY = cursor.getDouble(cursor.getColumnIndex(COLUMN_COORDINATES_Y))
+                place.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                places.add(place)
+
+            }
+            Toast.makeText(context, "${cursor.count.toString()} records found", Toast.LENGTH_SHORT)
+                .show()
+
+
+        }
+        cursor.close()
+        db.close()
+        return places
+
+
+
+
     }
 }
 
