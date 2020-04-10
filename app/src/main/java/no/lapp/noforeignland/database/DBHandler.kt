@@ -43,13 +43,8 @@ class DBHandler(
 
 
 
-
-
-
-
-
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("Not yet implemented")
+
     }
 
 
@@ -91,7 +86,7 @@ class DBHandler(
 
 
     fun addPlaces(context: Context, place: PlacesHolder){
-
+        val db=this.writableDatabase
 
         val values=ContentValues()
         values.put(COLUMN_ID,place.id)
@@ -99,20 +94,22 @@ class DBHandler(
         values.put(COLUMN_COORDINATES_Y,place.coordinatesY)
         values.put(COLUMN_NAME,place.name)
 
-        val db=this.writableDatabase
+        db.beginTransaction()
         try {
 
 
                 db.insertOrThrow(PLACES_TABLE_NAME, null, values)
 
 
+            db.setTransactionSuccessful();
 
+           println("place ADDED")
 
-            Toast.makeText(context,"place added", Toast.LENGTH_SHORT).show()
-
-        }catch (e: Exception){
-            Toast.makeText(context,"fail to input", Toast.LENGTH_SHORT).show()
+        }finally{
+            db.endTransaction();
         }
+
+
 
 
     }
@@ -126,7 +123,7 @@ class DBHandler(
         val places = ArrayList<PlacesHolder>()
 
         if (cursor.count == 0) {
-            Toast.makeText(context, "no records found", Toast.LENGTH_SHORT).show()
+            println("no RECORDS")
 
 
         } else {
@@ -139,8 +136,7 @@ class DBHandler(
                 places.add(place)
 
             }
-            Toast.makeText(context, "${cursor.count.toString()} records found", Toast.LENGTH_SHORT)
-                .show()
+            println(" RECORDS FOUND: "+cursor.count)
 
 
         }

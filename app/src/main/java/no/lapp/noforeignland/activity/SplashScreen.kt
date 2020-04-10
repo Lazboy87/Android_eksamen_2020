@@ -3,6 +3,7 @@ package no.lapp.noforeignland.activity
 
 
 import android.content.Intent
+import android.os.AsyncTask
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -59,48 +60,34 @@ class SplashScreen:AppCompatActivity(), OnAPIResultListener {
     override fun onAPISuccess(placeList: MutableList<Feature>) {
 
 
+        doAsync {
 
-        runOnUiThread {
-
-            for (feature in placeList) {
-
+                for (feature in placeList) {
 
 
-        val place = PlacesHolder()
-        place.name = feature.properties.name
-        place.id = feature.properties.id
-        val corValue = feature.geometry.coordinates
+                    val place = PlacesHolder()
+                    place.name = feature.properties.name
+                    place.id = feature.properties.id
+                    val corValue = feature.geometry.coordinates
 
-        place.coordinatesX = corValue[0]
-        place.coordinatesY = corValue[1]
+                    place.coordinatesX = corValue[0]
+                    place.coordinatesY = corValue[1]
 
+                    dbHandler.addPlaces(this, place)
+                    println(place.name)
 
-
-        dbHandler.addPlaces(this, place)
-
-
-
-
-        }
-
+                }
+            dbHandler.close()
 
             runOnUiThread {
 
 
-                Handler().postDelayed({
-                    val intent = Intent(this, ListPlaces::class.java)
-                    startActivity(intent)
-                    finish()
-                }, 2500)
-            }
-
-
-
-        }
-
-
-
-
+            Handler().postDelayed({
+                val intent = Intent(this, ListPlaces::class.java)
+                startActivity(intent)
+                finish()
+            }, 2500)
+        }}.execute()
     }
 
 
@@ -115,12 +102,15 @@ class SplashScreen:AppCompatActivity(), OnAPIResultListener {
         image.animation = rotate
 
 
-
-
-
     }
 
 
+    class doAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            handler()
+            return null
+        }
+    }
 }
 
 
