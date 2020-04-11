@@ -1,15 +1,12 @@
 package no.lapp.noforeignland.api
 
 
-
-
-
 import com.google.gson.Gson
 import no.lapp.noforeignland.classes.PlacesData
 import okhttp3.*
 import java.io.IOException
 
-class ApiListPlaces(private var listener : OnAPIResultListener) {
+class ApiListPlaces(private var listener: OnAPIResultListener) {
 
 
     fun fetchJson() {
@@ -17,7 +14,7 @@ class ApiListPlaces(private var listener : OnAPIResultListener) {
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
-
+        // running callback async method to fetch json
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 

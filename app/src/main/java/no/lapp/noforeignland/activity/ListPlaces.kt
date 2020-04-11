@@ -8,33 +8,27 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import kotlinx.android.synthetic.main.list_places.*
-
-
 import no.lapp.noforeignland.R
 import no.lapp.noforeignland.adapters.ViewAdapter
-import no.lapp.noforeignland.classes.PlacesHolder
-
 import no.lapp.noforeignland.database.DBHandler
-import java.util.Locale.filter
 
 
-class ListPlaces: AppCompatActivity() {
+class ListPlaces : AppCompatActivity() {
     private lateinit var dbHandler: DBHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_places)
 
-        dbHandler = DBHandler(this,null,null,1)
+        dbHandler = DBHandler(this, null, null, 1)
 
 
 
-  showplacesFromDB()
+        showplacesFromDB()
 
 
-        Search.addTextChangedListener( object:TextWatcher{
+        Search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -48,27 +42,18 @@ class ListPlaces: AppCompatActivity() {
             }
 
 
-
         })
 
 
     }
 
 
-
     private fun filter(text: String) {
 
         val PlacesList = dbHandler.getPlaces(this)
-        var filterlist = dbHandler.getPlacesSearch(this,text)
+        var filterlist = dbHandler.getPlacesSearch(this, text)
         println(filterlist)
 
-//        for(place in PlacesList){
-//            if(place.name.toLowerCase().contains(Text.toLowerCase())){
-//                filterlist.add(place)
-//
-//            }
-//            println(filterlist.toString())
-//        }
         runOnUiThread {
             val adapter = ViewAdapter(PlacesList)
             adapter.filterlist(filterlist)
@@ -88,9 +73,7 @@ class ListPlaces: AppCompatActivity() {
             return;
 
 
-
-
-     }
+        }
 
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
@@ -99,8 +82,7 @@ class ListPlaces: AppCompatActivity() {
     }
 
 
-
- fun showplacesFromDB(){
+    fun showplacesFromDB() {
         runOnUiThread {
 
 
@@ -111,8 +93,6 @@ class ListPlaces: AppCompatActivity() {
 
         }
     }
-
-
 
 
 }

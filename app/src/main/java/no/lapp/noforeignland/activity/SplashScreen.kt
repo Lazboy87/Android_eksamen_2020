@@ -59,25 +59,34 @@ class SplashScreen:AppCompatActivity(), OnAPIResultListener {
 
     override fun onAPISuccess(placeList: MutableList<Feature>) {
 
+           val PlacesList = dbHandler.getPlaces(this)
 
         doAsync {
+            if (PlacesList.isEmpty()){
+            dbHandler.readableDatabase.beginTransaction()
+                    for (feature in placeList) {
 
-                for (feature in placeList) {
+
+                        val place = PlacesHolder()
+                        place.name = feature.properties.name
+                        place.id = feature.properties.id
+                        val corValue = feature.geometry.coordinates
+
+                        place.coordinatesX = corValue[0]
+                        place.coordinatesY = corValue[1]
 
 
-                    val place = PlacesHolder()
-                    place.name = feature.properties.name
-                    place.id = feature.properties.id
-                    val corValue = feature.geometry.coordinates
-
-                    place.coordinatesX = corValue[0]
-                    place.coordinatesY = corValue[1]
 
                     dbHandler.addPlaces(this, place)
-                    println(place.name)
+
+
 
                 }
-            dbHandler.close()
+
+            dbHandler.readableDatabase.setTransactionSuccessful()
+            dbHandler.readableDatabase.endTransaction()
+            println("Places added")
+            dbHandler.close()}
 
             runOnUiThread {
 
