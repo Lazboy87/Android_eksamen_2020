@@ -2,7 +2,9 @@ package no.lapp.noforeignland.activity
 
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
@@ -28,6 +30,8 @@ class PlaceInfo : AppCompatActivity() {
 
 
         Placename.text = name
+
+        description.movementMethod = ScrollingMovementMethod()
 
 
         val url = "https://www.noforeignland.com/home/api/v1/place?id=" + id + ""
@@ -67,9 +71,22 @@ class PlaceInfo : AppCompatActivity() {
                     val comments = placesDescriptionData.place.comments.removePrefix("<p>")
                         .removeSuffix("</p>")
 
+                    if(!comments.isEmpty()){
+
                     description.text = comments
+                    }
 
                     Picasso.get().load(imgUrl).into(imagePlace)
+                    if (imgUrl != null) {
+                        if(!imgUrl.isEmpty()){
+                            imagePlace.setOnClickListener {
+                                val openURL = Intent(android.content.Intent.ACTION_VIEW)
+                                openURL.data = Uri.parse(imgUrl)
+                                startActivity(openURL)
+                            }
+                        }
+                    }
+
                 }
 
 

@@ -36,26 +36,13 @@ class SplashScreen:AppCompatActivity(), OnAPIResultListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
 
+        ApiListPlaces(this).fetchJson()
+        image= findViewById(R.id.imageCompas)
+        animateImage()
 
         dbHandler = DBHandler(this,null,null,1)
 
-
-        image= findViewById(R.id.imageCompas)
-
-        ApiListPlaces(this).fetchJson()
-
-
-        animateImage()
-
-
-
-
     }
-
-
-
-
-
 
     override fun onAPISuccess(placeList: MutableList<Feature>) {
 
@@ -63,30 +50,11 @@ class SplashScreen:AppCompatActivity(), OnAPIResultListener {
 
         doAsync {
             if (PlacesList.isEmpty()){
-            dbHandler.readableDatabase.beginTransaction()
-                    for (feature in placeList) {
+                dbHandler.addPlaces(this, placeList)
+                println("Places added")
+            }
 
 
-                        val place = PlacesHolder()
-                        place.name = feature.properties.name
-                        place.id = feature.properties.id
-                        val corValue = feature.geometry.coordinates
-
-                        place.coordinatesX = corValue[0]
-                        place.coordinatesY = corValue[1]
-
-
-
-                    dbHandler.addPlaces(this, place)
-
-
-
-                }
-
-            dbHandler.readableDatabase.setTransactionSuccessful()
-            dbHandler.readableDatabase.endTransaction()
-            println("Places added")
-            dbHandler.close()}
 
             runOnUiThread {
 
@@ -95,12 +63,9 @@ class SplashScreen:AppCompatActivity(), OnAPIResultListener {
                 val intent = Intent(this, ListPlaces::class.java)
                 startActivity(intent)
                 finish()
-            }, 2500)
+            }, 1000)
         }}.execute()
     }
-
-
-
 
 
     private fun animateImage() {

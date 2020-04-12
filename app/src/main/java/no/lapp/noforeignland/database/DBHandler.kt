@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import no.lapp.noforeignland.classes.Feature
 import no.lapp.noforeignland.classes.PlacesHolder
 
 class DBHandler(
@@ -77,25 +78,28 @@ class DBHandler(
     }
 
 
-    fun addPlaces(context: Context, place: PlacesHolder) {
+    fun addPlaces(context: Context, placeList: MutableList<Feature>) {
         val db = this.writableDatabase
 
-        val values = ContentValues()
-        values.put(COLUMN_ID, place.id)
-        values.put(COLUMN_COORDINATES_X, place.coordinatesX)
-        values.put(COLUMN_COORDINATES_Y, place.coordinatesY)
-        values.put(COLUMN_NAME, place.name)
+        db.beginTransaction()
+        for (place in placeList){
 
+            val values = ContentValues()
+            values.put(COLUMN_ID, place.properties.id)
+            val corValue = place.geometry.coordinates
+            values.put(COLUMN_COORDINATES_X, corValue[0])
+            values.put(COLUMN_COORDINATES_Y, corValue[1])
+            values.put(COLUMN_NAME, place.properties.name)
+            try {
+                db.insertOrThrow(PLACES_TABLE_NAME, null, values)
+            } catch (e: Exception) {
+                println("Fail to input data")
+            }
 
-        try {
-
-
-            db.insertOrThrow(PLACES_TABLE_NAME, null, values)
-            println("place ADDED")
-
-        } catch (e: Exception) {
-            println("Fail to input data")
         }
+        db.setTransactionSuccessful()
+        db.endTransaction()
+
 
     }
 
