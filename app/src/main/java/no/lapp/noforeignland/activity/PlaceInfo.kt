@@ -63,7 +63,9 @@ class PlaceInfo : AppCompatActivity() {
                 val imgUrl: String? = imageurlrandom?.servingUrl
                 val comments = Html.fromHtml(placesDescriptionData.place.comments).toString()
 
+
                 println(imgUrl)
+
 
 
 
@@ -74,12 +76,16 @@ class PlaceInfo : AppCompatActivity() {
 
 
 
-                    if(!comments.isEmpty()){
+                    if(!comments.isBlank()){
 
                     description.text = comments
                     }
 
-                    Picasso.get().load(imgUrl).into(imagePlace)
+                    Picasso.get().
+                    load(imgUrl).
+                    fit().
+                    into(imagePlace)
+
                     if (imgUrl != null) {
                         if(!imgUrl.isEmpty()){
                             imagePlace.setOnClickListener {
