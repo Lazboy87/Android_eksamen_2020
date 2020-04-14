@@ -55,6 +55,7 @@
         android:id="@+id/Recycler"
         android:layout_width="match_parent"
         android:layout_height="399dp"
+        android:background="@drawable/custom_border2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

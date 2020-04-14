@@ -35,9 +35,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var place = LatLng(corY, corX)
         var name = intent.getStringExtra("placename")
 
+        val zoomLvl=CameraUpdateFactory.zoomTo(10.0f)
+
 
         mMap.addMarker(MarkerOptions().position(place).title(name))
+        mMap.moveCamera(zoomLvl)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(place))
+
+
     }
 
 

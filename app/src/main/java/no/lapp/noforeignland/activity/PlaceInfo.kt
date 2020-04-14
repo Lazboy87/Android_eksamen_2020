@@ -4,6 +4,7 @@ package no.lapp.noforeignland.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -57,7 +58,10 @@ class PlaceInfo : AppCompatActivity() {
 
                 val imageurlrandom = images?.random()
                 // Desided to not use banner since many of the Api places does not have banner url but have image urls in array in Places
+
+
                 val imgUrl: String? = imageurlrandom?.servingUrl
+                val comments = Html.fromHtml(placesDescriptionData.place.comments).toString()
 
                 println(imgUrl)
 
@@ -68,8 +72,7 @@ class PlaceInfo : AppCompatActivity() {
 
                 runOnUiThread {
 
-                    val comments = placesDescriptionData.place.comments.removePrefix("<p>")
-                        .removeSuffix("</p>")
+
 
                     if(!comments.isEmpty()){
 
