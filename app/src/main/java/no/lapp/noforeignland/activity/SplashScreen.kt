@@ -4,24 +4,16 @@ package no.lapp.noforeignland.activity
 
 import android.content.Intent
 import android.os.AsyncTask
-
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-
-
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-
-
-
+import androidx.appcompat.app.AppCompatActivity
 import no.lapp.noforeignland.R
 import no.lapp.noforeignland.api.ApiListPlaces
 import no.lapp.noforeignland.api.OnAPIResultListener
 import no.lapp.noforeignland.classes.Feature
-import no.lapp.noforeignland.classes.PlacesHolder
 import no.lapp.noforeignland.database.DBHandler
-
 
 
 class SplashScreen:AppCompatActivity(), OnAPIResultListener {

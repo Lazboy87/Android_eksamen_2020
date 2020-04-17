@@ -2,7 +2,6 @@ package no.lapp.noforeignland.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -37,7 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val zoomLvl=CameraUpdateFactory.zoomTo(10.0f)
 
-
+        mMap.uiSettings.isZoomControlsEnabled = true
         mMap.addMarker(MarkerOptions().position(place).title(name))
         mMap.moveCamera(zoomLvl)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(place))
