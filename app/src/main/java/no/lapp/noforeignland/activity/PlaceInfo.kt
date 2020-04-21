@@ -57,7 +57,7 @@ class PlaceInfo : AppCompatActivity() {
                 val images = placesDescriptionData.place.images.ifEmpty { null }
 
                 val imageurlrandom = images?.random()
-                // Desided to not use banner since many of the Api places does not have banner url but have image urls in array in Places
+                // Decided to not use banner since many of the Api places does not have banner url but have image urls in array in Places
 
 
                 val imgUrl: String? = imageurlrandom?.servingUrl

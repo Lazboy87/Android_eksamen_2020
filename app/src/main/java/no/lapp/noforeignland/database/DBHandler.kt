@@ -124,7 +124,6 @@ class DBHandler(
                 place.coordinatesY = cursor.getDouble(cursor.getColumnIndex(COLUMN_COORDINATES_Y))
                 place.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
                 places.add(place)
-
             }
             println(" RECORDS FOUND: " + cursor.count)
 
